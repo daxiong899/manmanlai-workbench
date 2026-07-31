@@ -1,0 +1,39 @@
+{
+  "name": "慢慢来·工作台",
+  "short_name": "慢慢来工作台",
+  "start_url": "/manmanlai-workbench/?source=pwa",
+  "display": "standalone",
+  "background_color": "#0f1115",
+  "theme_color": "#0f1115",
+  "orientation": "portrait-primary",
+  "scope": "/manmanlai-workbench/",
+  "description": "慢慢来心理疗愈室 · 自动化任务与内容管理中枢",
+  "categories": ["productivity", "utilities"],
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "480x960",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}

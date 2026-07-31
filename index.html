@@ -1,9 +1,15 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f1115">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="慢慢来工作台">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 <title>慢慢来·工作台</title>
 <style>
   :root{--bg:#0f1115;--card:#1a1d24;--line:#262b34;--tx:#e8eaed;--dim:#8a8f98;--green:#3ec46d;--gray:#8a8f98;--red:#ff5c5c;--acc:#7aa2ff;--warn:#f0b429}
@@ -46,7 +52,7 @@
 <div class="app">
   <div class="health">
     <div class="title">慢慢来 · 工作台</div>
-    <div class="sub">2026-07-31 06:38 ｜ 9/9 运行中 ｜ 今日产出 13 篇 ｜ 待复核 8</div>
+    <div class="sub">2026-07-31 14:59 ｜ 9/9 运行中 ｜ 今日产出 13 篇 ｜ 待复核 8</div>
   </div>
 
   <div class="actions">
@@ -271,13 +277,29 @@
       </div>
   </div>
 
-  <footer>最后刷新 2026-07-31 06:38 ｜ 数据由主代理汇总（快照，非实时）<br>慢慢来心理疗愈室 · 自动化任务中枢</footer>
+  <footer>最后刷新 2026-07-31 14:59 ｜ 数据由主代理汇总（快照，非实时）<br>慢慢来心理疗愈室 · 自动化任务中枢</footer>
 </div>
 <div class="toast" id="toast"></div>
 <script>
 function showToast(msg){document.getElementById('toast').textContent=msg;document.getElementById('toast').classList.add('show');setTimeout(function(){document.getElementById('toast').classList.remove('show');},1800);}
 function copyCmd(cmd){if(navigator.clipboard){navigator.clipboard.writeText(cmd).then(function(){showToast('已复制：'+cmd+'\n去对话框发我就行');});}else{showToast('请发我：'+cmd);}}
 document.querySelectorAll('[data-cmd]').forEach(function(el){el.addEventListener('click',function(){copyCmd(el.getAttribute('data-cmd'));});});
+
+/* PWA 注册 + 联网状态指示 */
+(function(){
+  var statusEl = document.createElement('div');
+  statusEl.id = 'netstatus';
+  statusEl.style.cssText = 'position:fixed;right:12px;top:calc(12px + env(safe-area-inset-top));font-size:11px;padding:3px 8px;border-radius:10px;background:rgba(0,0,0,0.45);color:#8a8f98;z-index:50;pointer-events:none;transition:opacity .3s';
+  function setNet(){ statusEl.textContent = navigator.onLine ? '在线 · 已连接' : '离线 · 显示缓存快照'; statusEl.style.color = navigator.onLine ? '#3ec46d' : '#f0b429'; }
+  setNet(); document.body.appendChild(statusEl);
+  window.addEventListener('online', setNet); window.addEventListener('offline', setNet);
+
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').then(function(reg){
+      console.log('SW registered', reg.scope);
+    }).catch(function(err){ console.error('SW failed', err); });
+  }
+})();
 </script>
 </body>
 </html>
